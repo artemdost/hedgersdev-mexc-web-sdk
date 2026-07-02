@@ -55,6 +55,10 @@ client = MexcClient(os.environ["MEXC_TOKEN"])
 # Публичные данные (токен не нужен)
 print(client.market.ticker("BTC_USDT"))
 
+# Кто я: email + uid аккаунта
+print("email:", client.user.email())
+print("uid:", client.user.uid())
+
 # Баланс
 for a in client.account.assets()["data"]:
     if a["equity"]:
@@ -87,6 +91,7 @@ client.positions.set_leverage(50, symbol="BTC_USDT", open_type=ISOLATED, positio
 | Namespace            | Что покрывает                                                        |
 |----------------------|---------------------------------------------------------------------|
 | `client.market`      | ping, contract detail, depth, klines, deals, ticker, funding, index/fair price, insurance fund |
+| `client.user`        | **email, uid (digitalId), профиль** — ucenter на `www.mexc.com` |
 | `client.account`     | assets, asset, fee rate, tiered/30d fees, risk limits, zero-fee пары, profit rate, transfer records |
 | `client.positions`   | open/history, position mode, leverage, margin, auto-add-margin, close_all, reverse, funding records |
 | `client.orders`      | create/create_raw, batch, cancel/cancel_all, by-external, change/chase, get, open/history/closed, deals, fee details, in-flight count |

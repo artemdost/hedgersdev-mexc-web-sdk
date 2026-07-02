@@ -57,6 +57,10 @@ class Transport:
     def token(self) -> str | None:
         return self._token
 
+    @property
+    def session(self) -> requests.Session:
+        return self._session
+
     def set_token(self, token: str) -> None:
         """Swap the web token in place (e.g. after refreshing it from cookies)."""
         self._token = token

@@ -15,6 +15,7 @@ from .positions import PositionsAPI
 from .stp import StpAPI
 from .tpsl import TpslAPI
 from .trailing import TrailingAPI
+from .user import UserAPI
 
 __all__ = ["MexcClient"]
 
@@ -30,6 +31,7 @@ class MexcClient:
     Endpoints are grouped into namespaces::
 
         client.market      # public market data (no token needed)
+        client.user        # account identity: email, uid, profile (ucenter)
         client.account     # balances, fees, risk limits
         client.positions   # positions, leverage, margin, position mode
         client.orders      # place / cancel / query orders, batch, chase
@@ -60,6 +62,7 @@ class MexcClient:
         )
         self.market = MarketAPI(self._transport)
         self.account = AccountAPI(self._transport)
+        self.user = UserAPI(self._transport)
         self.positions = PositionsAPI(self._transport)
         self.orders = OrdersAPI(self._transport)
         self.plan = PlanOrdersAPI(self._transport)
