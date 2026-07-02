@@ -9,7 +9,7 @@ description = "Unofficial MEXC SDK using the web (browser session) token — spo
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [{ name = "mspread" }]
+authors = [{ name = "Hedgersdev" }]
 keywords = ["mexc", "trading", "crypto", "futures", "spot", "sdk", "exchange"]
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -27,6 +27,7 @@ dev = ["pytest>=7", "ruff>=0.1"]
 [project.urls]
 Homepage = "https://github.com/artemdost/mexc-web-sdk"
 Repository = "https://github.com/artemdost/mexc-web-sdk"
+Telegram = "https://t.me/hedgersdev"
 
 [tool.setuptools.packages.find]
 include = ["mexc_web*"]

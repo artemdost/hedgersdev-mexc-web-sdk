@@ -1,18 +1,20 @@
 # mexc-web
 
+> 🛠 Сделано командой **[Hedgersdev](https://t.me/hedgersdev)** — Telegram: **[@hedgersdev](https://t.me/hedgersdev)**
+
 Неофициальный Python-SDK для **MEXC Futures** на **web-токене** (`u_id` из
 браузера) — том самом, что использует торговый интерфейс биржи. Никаких
 API-ключей: логинишься в браузере, копируешь токен, торгуешь из кода.
 
 Покрыты **все** методы фьючерсного web-API: рынок, аккаунт и балансы, позиции,
 плечо и маржа, ордера (лимит/маркет/пост-онли/IOC/FOK, батч, chase), плановые
-(conditional) ордера, TP/SL, трейлинг-стоп, STP-группы, а также WebSocket
+(conditional) ордера, TP/SL, трейлинг-стоп, STP-группы, идентити (email/uid),
+**переводы между кошельками** (спот/фьючи/funding) и WebSocket
 (публичные каналы + приватные пуши по ордерам/позициям).
 
-> ⚠️ Web-токен **не умеет выводить или переводить средства** — это делается
-> только через spot OpenAPI (API-ключ) и намеренно вне рамок этого SDK. Здесь
-> доступно чтение истории переводов (`account.transfer_records`), но не их
-> исполнение.
+> 💸 Web-токен умеет и **двигать средства** между кошельками (спот ⇄ фьючи ⇄
+> funding/фиат) — см. раздел «Переводы средств». Вывод на внешний адрес
+> намеренно не включён.
 
 ---
 
@@ -92,6 +94,7 @@ client.positions.set_leverage(50, symbol="BTC_USDT", open_type=ISOLATED, positio
 |----------------------|---------------------------------------------------------------------|
 | `client.market`      | ping, contract detail, depth, klines, deals, ticker, funding, index/fair price, insurance fund |
 | `client.user`        | **email, uid (digitalId), профиль** — ucenter на `www.mexc.com` |
+| `client.wallet`      | **переводы между кошельками** (спот/фьючи/funding) + overview/balances |
 | `client.account`     | assets, asset, fee rate, tiered/30d fees, risk limits, zero-fee пары, profit rate, transfer records |
 | `client.positions`   | open/history, position mode, leverage, margin, auto-add-margin, close_all, reverse, funding records |
 | `client.orders`      | create/create_raw, batch, cancel/cancel_all, by-external, change/chase, get, open/history/closed, deals, fee details, in-flight count |
@@ -186,6 +189,16 @@ signature = md5(ts + serialized_body + postfix)
 `ts` (мс) уходит в заголовок `x-mxc-nonce`, подпись — в `x-mxc-sign`, сам токен —
 в `Authorization`. Тело сериализуется один раз и отправляется теми же байтами,
 что были подписаны, — иначе биржа вернёт «Confirming signature failed».
+
+---
+
+## Авторы
+
+Разработано и поддерживается командой **Hedgersdev**.
+
+📢 Telegram-канал: **[@hedgersdev](https://t.me/hedgersdev)** — сигналы, инструменты и апдейты.
+
+Если SDK пригодился — подпишись и закинь ⭐ репозиторию.
 
 ---
 

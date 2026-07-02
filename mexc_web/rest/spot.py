@@ -4,9 +4,10 @@ This is a **separate** auth mechanism from the web token: MEXC's spot v3 API
 (``api.mexc.com``) signs requests with an API key + secret (HMAC-SHA256), the
 key goes in the ``X-MEXC-APIKEY`` header and the signature in the query string.
 
-It exists here because moving funds between wallets (SPOT <-> FUTURES) is only
-possible through this API — the web token cannot do it. Ported from the raskor
-bot's ``MexcSpotClient``.
+It's an API-key alternative for moving funds between wallets and for spot-only
+features (deposit addresses). If you already use a web token, ``client.wallet``
+does transfers without an API key; this client is here for API-key workflows.
+Ported from the raskor bot's ``MexcSpotClient``.
 
 The API key needs the **Transfer / Wallet** permission enabled
 (https://www.mexc.com/user/openapi), otherwise transfers return error 700007.

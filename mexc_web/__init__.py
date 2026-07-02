@@ -1,10 +1,10 @@
 """mexc-web — unofficial MEXC SDK using the browser (web) token.
 
 MexcClient (web token) covers the *futures* web API — trading, positions,
-plan/TP-SL/trailing orders, account, identity and market data. The web token
-cannot move funds between wallets, so internal transfers (SPOT <-> FUTURES),
-spot balances and deposit addresses live on MexcSpotClient, which uses an API
-key (HMAC) — a separate credential.
+plan/TP-SL/trailing orders, account, identity, market data and internal
+transfers between wallets (spot / futures / funding, via client.wallet).
+MexcSpotClient is an optional API-key (HMAC) alternative that also exposes
+spot balances, transfers and deposit addresses.
 
 Quick start::
 
@@ -12,8 +12,9 @@ Quick start::
 
     client = MexcClient("YOUR_U_ID_TOKEN")
     print(client.account.assets())
+    client.wallet.spot_to_funding(5, "USDT")   # move funds with the web token
 
-    spot = MexcSpotClient("API_KEY", "API_SECRET")
+    spot = MexcSpotClient("API_KEY", "API_SECRET")   # API-key alternative
     spot.transfer_to_futures(25, "USDT")
 """
 
