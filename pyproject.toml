@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mexc-web"
+version = "0.1.0"
+description = "Unofficial MEXC SDK using the web (browser session) token — spot & futures trading, transfers, account and market data."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "mspread" }]
+keywords = ["mexc", "trading", "crypto", "futures", "spot", "sdk", "exchange"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "requests>=2.28",
+]
+
+[project.optional-dependencies]
+ws = ["websocket-client>=1.5"]
+dev = ["pytest>=7", "ruff>=0.1"]
+
+[project.urls]
+Homepage = "https://github.com/artemdost/mexc-web-sdk"
+Repository = "https://github.com/artemdost/mexc-web-sdk"
+
+[tool.setuptools.packages.find]
+include = ["mexc_web*"]
+
+[tool.ruff]
+line-length = 100
