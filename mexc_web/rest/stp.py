@@ -10,7 +10,11 @@ __all__ = ["StpAPI"]
 
 
 class StpAPI(Namespace):
-    """Self-trade-prevention groups (web-token auth)."""
+    """Self-trade-prevention groups (web-token auth).
+
+    Note: these endpoints are only available to market-maker accounts. A regular
+    account gets MEXC error 511 ("You do not have access to the interface").
+    """
 
     def list(self, **query: Any) -> Any:
         """STP groups and members. ``GET /private/market_maker/self_trade/blacklist``."""

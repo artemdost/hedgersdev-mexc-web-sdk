@@ -24,6 +24,14 @@ class TrailingAPI(Namespace):
         """Modify a trailing order. ``POST /private/trackorder/change_order``."""
         return self._t.request("POST", "/private/trackorder/change_order", params=body)
 
-    def list(self, **query: Any) -> Any:
-        """List trailing orders. ``GET /private/trackorder/list/orders``."""
-        return self._t.request("GET", "/private/trackorder/list/orders", params=clean(query))
+    def list(self, states: str = "0,1,2,3,4", **query: Any) -> Any:
+        """List trailing orders. ``GET /private/trackorder/list/orders``.
+
+        ``states`` is required by MEXC (comma-separated): 0 not activated,
+        1 activated, 2 triggered, 3 trigger failed, 4 canceled. Defaults to all.
+        Optional: ``symbol``, ``side``, ``start_time``, ``end_time``,
+        ``pageIndex``, ``pageSize``.
+        """
+        return self._t.request(
+            "GET", "/private/trackorder/list/orders", params=clean({"states": states, **query})
+        )
