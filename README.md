@@ -109,30 +109,47 @@ client.request("POST", "/private/order/create", params={...})
 
 ---
 
-## Переводы средств (SPOT ⇆ FUTURES)
+## Переводы средств
 
-Web-токен **не двигает** деньги между кошельками — это делает только spot
-OpenAPI по **API-ключу** (отдельный креденшл, нужно право *Transfer/Wallet*).
-Для этого есть отдельный `MexcSpotClient`:
+### Вариант A — по web-токену (без API-ключа) ✅
+
+Web-токен **умеет** двигать средства между кошельками — MEXC авторизует его как
+cookie на asset-платформе (это же делает кнопка «Transfer» в вебе). Доступно
+прямо из `MexcClient`:
+
+```python
+client = MexcClient("YOUR_U_ID_TOKEN")
+
+print(client.wallet.balances())     # {'USDT': {'spot': .., 'contract': .., 'otc': ..}}
+
+client.wallet.spot_to_futures(25, "USDT")   # спот → фьючи
+client.wallet.futures_to_spot(10, "USDT")   # фьючи → спот
+client.wallet.spot_to_funding(5, "USDT")    # спот → funding (фиат/OTC)
+client.wallet.funding_to_spot(5, "USDT")    # funding → спот
+
+# произвольно; кошельки: MAIN=спот, SWAP=фьючи, OTC=funding/фиат, STOCK=сток
+from mexc_web.rest.wallet import MAIN, SWAP, OTC
+client.wallet.transfer("USDT", MAIN, OTC, 5)
+```
+
+Идентификаторы кошельков (проверено вживую): `MAIN` (спот), `SWAP` (фьючи),
+`OTC` (**funding / фиат** — сюда падают карты/фиат), `STOCK` (нужно открыть счёт).
+
+### Вариант B — по API-ключу (spot OpenAPI)
+
+Тот же трансфер + депозит-адреса через API-ключ (HMAC), если нужно:
 
 ```python
 from mexc_web import MexcSpotClient
 
-spot = MexcSpotClient("API_KEY", "API_SECRET")
-
-print(spot.balance("USDT"))          # свободный баланс на споте
-print(spot.balances())               # все ненулевые балансы
-
-spot.transfer_to_futures(25, "USDT") # SPOT → FUTURES
-spot.transfer_to_spot(10, "USDT")    # FUTURES → SPOT
-spot.transfer("SPOT", "FUTURES", "USDT", 25)   # произвольные типы счетов
-
+spot = MexcSpotClient("API_KEY", "API_SECRET")   # нужно право Transfer/Wallet
+print(spot.balances())
+spot.transfer_to_futures(25, "USDT")
 print(spot.transfer_history("SPOT", "FUTURES"))
 print(spot.deposit_address("USDT", "TRC20"))
 ```
 
-> Фиат/C2C — отдельный шлюз MEXC, здесь не покрыт. Вывод на внешний адрес
-> (`capital/withdraw`) намеренно не включён; при необходимости добавим отдельно.
+> Внешний вывод (`capital/withdraw`) намеренно не включён; при необходимости добавим.
 
 ---
 
