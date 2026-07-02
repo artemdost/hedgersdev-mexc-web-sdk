@@ -29,6 +29,10 @@ __all__ = ["MexcSpotClient"]
 # Account types accepted by /capital/transfer
 SPOT = "SPOT"
 FUTURES = "FUTURES"
+MARGIN = "MARGIN"
+#: Funding wallet (where fiat/card purchases land). MEXC's enum is "FUND";
+#: if the API rejects it, try "FUNDING".
+FUND = "FUND"
 
 
 class MexcSpotClient:
@@ -166,6 +170,18 @@ class MexcSpotClient:
     def transfer_to_spot(self, amount: float, asset: str = "USDT") -> Any:
         """Convenience: FUTURES -> SPOT."""
         return self.transfer(FUTURES, SPOT, asset, amount)
+
+    def transfer_to_funding(
+        self, amount: float, asset: str = "USDT", *, from_account: str = SPOT
+    ) -> Any:
+        """Convenience: <from_account> -> FUND (funding / fiat wallet)."""
+        return self.transfer(from_account, FUND, asset, amount)
+
+    def transfer_from_funding(
+        self, amount: float, asset: str = "USDT", *, to_account: str = SPOT
+    ) -> Any:
+        """Convenience: FUND (funding / fiat wallet) -> <to_account>."""
+        return self.transfer(FUND, to_account, asset, amount)
 
     def transfer_history(
         self, from_account: str = SPOT, to_account: str = FUTURES
