@@ -1,4 +1,4 @@
-"""Spot OpenAPI client (API-key HMAC) — wallet balances and internal transfers.
+"""Spot OpenAPI client (API-key HMAC), wallet balances and internal transfers.
 
 This is a **separate** auth mechanism from the web token: MEXC's spot v3 API
 (``api.mexc.com``) signs requests with an API key + secret (HMAC-SHA256), the

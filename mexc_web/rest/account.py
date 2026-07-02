@@ -31,7 +31,7 @@ class AccountAPI(Namespace):
         """Spot<->futures transfer history. ``GET /private/account/transfer_record``.
 
         Note: this only *reads* transfer history. The web token cannot execute a
-        transfer or a withdrawal — those go through the spot OpenAPI (API key).
+        transfer or a withdrawal, those go through the spot OpenAPI (API key).
         """
         return self._t.request(
             "GET",

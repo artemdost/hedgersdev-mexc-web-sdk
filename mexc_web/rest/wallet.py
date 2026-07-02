@@ -1,7 +1,7 @@
 """Wallet overview + internal transfers via the web token (asset platform).
 
 Unlike :class:`~mexc_web.rest.spot.MexcSpotClient` (which needs an API key), this
-uses the **web token** — the same credential as the rest of ``MexcClient`` —
+uses the **web token**, the same credential as the rest of ``MexcClient`` -
 because MEXC's asset platform authenticates it as a cookie. This is what powers
 the "Transfer" button in the web UI.
 

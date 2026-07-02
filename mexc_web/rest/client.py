@@ -24,8 +24,8 @@ __all__ = ["MexcClient"]
 class MexcClient:
     """Synchronous MEXC futures client authenticated with the web (``u_id``) token.
 
-    Grab the token from your browser: log in at mexc.com, open DevTools →
-    Application → Cookies → ``https://www.mexc.com`` → copy the ``u_id`` value.
+    Grab the token from your browser: log in at mexc.com, open DevTools ->
+    Application -> Cookies -> ``https://www.mexc.com`` -> copy the ``u_id`` value.
     Tokens expire after ~1-4 weeks; refresh when calls start returning auth
     errors.
 

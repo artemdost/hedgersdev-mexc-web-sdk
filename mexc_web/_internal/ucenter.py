@@ -1,6 +1,6 @@
 """Access to the MEXC ucenter API (account identity: email, uid, ...).
 
-ucenter lives on ``www.mexc.com`` — a different host from the futures API and a
+ucenter lives on ``www.mexc.com``, a different host from the futures API and a
 different auth scheme: the web token goes in the ``ucenter-token`` header, and
 there is **no** MD5 signature.
 
@@ -125,7 +125,7 @@ def ucenter_request(
     sess = session or requests
     resp = sess.request(method, url, headers=headers, data=data, timeout=timeout)
 
-    # Akamai edge block → retry with curl (standard JA3).
+    # Akamai edge block -> retry with curl (standard JA3).
     if resp.status_code == 403:
         return _curl_fallback(method, url, headers, data)
 

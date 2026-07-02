@@ -1,6 +1,6 @@
 """Offline tests: signing, headers, URL/body construction, auth guard.
 
-No network — the requests.Session is stubbed.
+No network, the requests.Session is stubbed.
 """
 
 import hashlib

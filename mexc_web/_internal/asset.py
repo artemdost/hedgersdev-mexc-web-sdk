@@ -2,7 +2,7 @@
 
 This is the endpoint the browser's own Transfer modal uses. It lives on
 ``www.mexc.com/api/platform/asset`` and authenticates with the web token as a
-**cookie** (``u_id=<token>``) — not the futures MD5 signature and not an API
+**cookie** (``u_id=<token>``), not the futures MD5 signature and not an API
 key. This is how the web token can move funds between wallets even though it
 cannot on the futures host.
 

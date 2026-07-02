@@ -12,7 +12,7 @@ signature goes in ``x-mxc-sign``; the token itself is sent verbatim in
 ``Authorization``.
 
 To guarantee the bytes we *sign* are byte-for-byte the bytes we *send*, the body
-is serialized once here and passed to ``requests`` as raw ``data`` — never
+is serialized once here and passed to ``requests`` as raw ``data``, never
 re-serialized by the HTTP layer.
 """
 
@@ -43,7 +43,7 @@ class Transport:
         base_url: str = _DEFAULT_BASE_URL,
         timeout: float = 10.0,
         session: requests.Session | None = None,
-        user_agent: str = "mexc-web/0.1 (+https://github.com/artemdost/hedgersdev-mexc-web-sdk)",
+        user_agent: str = "mexc-web/0.1 (+https://github.com/mexicanchik/hedgersdev-mexc-web-sdk)",
     ) -> None:
         self._token = token
         self._base_url = base_url.rstrip("/")
@@ -81,7 +81,7 @@ class Transport:
         Args:
             method: HTTP verb.
             path: Endpoint path relative to the base URL (leading ``/``).
-            params: For GET — query parameters (dict). For POST — the JSON body
+            params: For GET, query parameters (dict). For POST, the JSON body
                 (dict or list).
             auth: Whether to sign the request with the web token. Public market
                 endpoints pass ``auth=False``.

@@ -14,7 +14,7 @@ class UserAPI(Namespace):
     """Personal account data behind the ``ucenter-token`` header.
 
     These endpoints live on ``www.mexc.com`` (not the futures host) and use the
-    web token directly — no MD5 signature. ``www.mexc.com`` is Akamai-guarded;
+    web token directly, no MD5 signature. ``www.mexc.com`` is Akamai-guarded;
     the transport falls back to a ``curl`` subprocess if a 403 is returned.
     """
 

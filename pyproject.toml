@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mexc-web"
 version = "0.1.0"
-description = "Unofficial MEXC SDK using the web (browser session) token — spot & futures trading, transfers, account and market data."
+description = "Unofficial MEXC SDK using the web (browser session) token, spot & futures trading, transfers, account and market data."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
@@ -25,8 +25,8 @@ ws = ["websocket-client>=1.5"]
 dev = ["pytest>=7", "ruff>=0.1"]
 
 [project.urls]
-Homepage = "https://github.com/artemdost/hedgersdev-mexc-web-sdk"
-Repository = "https://github.com/artemdost/hedgersdev-mexc-web-sdk"
+Homepage = "https://github.com/mexicanchik/hedgersdev-mexc-web-sdk"
+Repository = "https://github.com/mexicanchik/hedgersdev-mexc-web-sdk"
 Telegram = "https://t.me/hedgersdev"
 
 [tool.setuptools.packages.find]

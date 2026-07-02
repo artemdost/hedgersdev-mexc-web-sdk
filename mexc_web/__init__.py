@@ -1,6 +1,6 @@
-"""mexc-web — unofficial MEXC SDK using the browser (web) token.
+"""mexc-web, unofficial MEXC SDK using the browser (web) token.
 
-MexcClient (web token) covers the *futures* web API — trading, positions,
+MexcClient (web token) covers the *futures* web API, trading, positions,
 plan/TP-SL/trailing orders, account, identity, market data and internal
 transfers between wallets (spot / futures / funding, via client.wallet).
 MexcSpotClient is an optional API-key (HMAC) alternative that also exposes
