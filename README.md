@@ -109,6 +109,33 @@ client.request("POST", "/private/order/create", params={...})
 
 ---
 
+## Переводы средств (SPOT ⇆ FUTURES)
+
+Web-токен **не двигает** деньги между кошельками — это делает только spot
+OpenAPI по **API-ключу** (отдельный креденшл, нужно право *Transfer/Wallet*).
+Для этого есть отдельный `MexcSpotClient`:
+
+```python
+from mexc_web import MexcSpotClient
+
+spot = MexcSpotClient("API_KEY", "API_SECRET")
+
+print(spot.balance("USDT"))          # свободный баланс на споте
+print(spot.balances())               # все ненулевые балансы
+
+spot.transfer_to_futures(25, "USDT") # SPOT → FUTURES
+spot.transfer_to_spot(10, "USDT")    # FUTURES → SPOT
+spot.transfer("SPOT", "FUTURES", "USDT", 25)   # произвольные типы счетов
+
+print(spot.transfer_history("SPOT", "FUTURES"))
+print(spot.deposit_address("USDT", "TRC20"))
+```
+
+> Фиат/C2C — отдельный шлюз MEXC, здесь не покрыт. Вывод на внешний адрес
+> (`capital/withdraw`) намеренно не включён; при необходимости добавим отдельно.
+
+---
+
 ## WebSocket
 
 ```python
