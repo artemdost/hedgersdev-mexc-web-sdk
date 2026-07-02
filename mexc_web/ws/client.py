@@ -136,11 +136,27 @@ class MexcWSClient:
         """Generic subscribe, e.g. ``subscribe("sub.depth", {"symbol": "BTC_USDT"})``."""
         self.send({"method": method, "param": param or {}})
 
+    def unsubscribe(self, method: str, param: dict[str, Any] | None = None) -> None:
+        """Generic unsubscribe, e.g. ``unsubscribe("unsub.depth", {"symbol": "BTC_USDT"})``.
+
+        Accepts either the ``sub.*`` or ``unsub.*`` form for convenience.
+        """
+        if method.startswith("sub."):
+            method = "un" + method
+        self.send({"method": method, "param": param or {}})
+
     def sub_depth(self, symbol: str, *, limit: int | None = None) -> None:
         param: dict[str, Any] = {"symbol": symbol}
         if limit is not None:
             param["limit"] = limit
         self.subscribe("sub.depth", param)
+
+    def sub_depth_step(self, symbol: str, *, step: int | None = None, **param: Any) -> None:
+        """Depth aggregated to a minimum notional step. ``sub.depth.step``."""
+        p: dict[str, Any] = {"symbol": symbol, **param}
+        if step is not None:
+            p["step"] = step
+        self.subscribe("sub.depth.step", p)
 
     def sub_deal(self, symbol: str) -> None:
         self.subscribe("sub.deal", {"symbol": symbol})
@@ -163,8 +179,34 @@ class MexcWSClient:
     def sub_fair_price(self, symbol: str) -> None:
         self.subscribe("sub.fair.price", {"symbol": symbol})
 
+    def sub_contract(self, symbol: str) -> None:
+        """Contract-info stream. ``sub.contract``."""
+        self.subscribe("sub.contract", {"symbol": symbol})
+
+    def sub_event_contract(self, symbol: str) -> None:
+        """Event-contract stream. ``sub.event.contract``."""
+        self.subscribe("sub.event.contract", {"symbol": symbol})
+
+    #: Valid private-push filter names for :meth:`personal_filter`.
+    FILTERS = (
+        "order",
+        "order.deal",
+        "position",
+        "plan.order",
+        "stop.order",
+        "stop.planorder",
+        "risk.limit",
+        "adl.level",
+        "asset",
+    )
+
     def personal_filter(self, filters: list[str]) -> None:
-        """Restrict private pushes to the given filters (e.g. ``["order", "position"]``)."""
+        """Restrict private pushes to the given filters.
+
+        Valid names (see :attr:`FILTERS`): order, order.deal, position,
+        plan.order, stop.order, stop.planorder, risk.limit, adl.level, asset.
+        Example: ``ws.personal_filter(["order", "position", "asset"])``.
+        """
         self.subscribe(
             "personal.filter", {"filters": [{"filter": f} for f in filters]}
         )
