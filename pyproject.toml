@@ -25,8 +25,8 @@ ws = ["websocket-client>=1.5"]
 dev = ["pytest>=7", "ruff>=0.1"]
 
 [project.urls]
-Homepage = "https://github.com/artemdost/mexc-web-sdk"
-Repository = "https://github.com/artemdost/mexc-web-sdk"
+Homepage = "https://github.com/artemdost/hedgersdev-mexc-web-sdk"
+Repository = "https://github.com/artemdost/hedgersdev-mexc-web-sdk"
 Telegram = "https://t.me/hedgersdev"
 
 [tool.setuptools.packages.find]

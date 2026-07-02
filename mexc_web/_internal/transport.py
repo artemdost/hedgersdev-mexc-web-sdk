@@ -43,7 +43,7 @@ class Transport:
         base_url: str = _DEFAULT_BASE_URL,
         timeout: float = 10.0,
         session: requests.Session | None = None,
-        user_agent: str = "mexc-web/0.1 (+https://github.com/artemdost/mexc-web-sdk)",
+        user_agent: str = "mexc-web/0.1 (+https://github.com/artemdost/hedgersdev-mexc-web-sdk)",
     ) -> None:
         self._token = token
         self._base_url = base_url.rstrip("/")
